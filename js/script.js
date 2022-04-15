@@ -68,13 +68,21 @@ window.onload = function () {
                 break;
         }
     }
+
+    txt_opt.onclick = function () {
+        copyText(txt_opt.innerHTML);
+    }
+
+    btn.click();
+
     //对于普通情况的函数
     function makePW (len,startnum,endnum) {
         for(var i=0; i<=len; i++) {
             var ram = Math.floor(Math.random()*(endnum-startnum+1)+startnum);
             str += data[ram];
         }
-        txt_opt.innerHTML = "结果为：" +  str;
+        txt_opt.innerHTML = str;
+        copyText(str);
         str = "";
     }
     //特殊情况
@@ -88,9 +96,18 @@ window.onload = function () {
             }
             str += data[ram];
         }
-        txt_opt.innerHTML = "结果为：" + str;
+        txt_opt.innerHTML = str;
+        console.log(str);
+        copyText(str);
         str = "";
     }
 
-
+    function copyText(content) {
+        var ctx = document.createElement("input");
+        ctx.setAttribute("value", JSON.parse(JSON.stringify(content)));
+        document.body.appendChild(ctx);
+        ctx.select();
+        document.execCommand("copy");
+        document.body.removeChild(ctx);
+    }
 }
